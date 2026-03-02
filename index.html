@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvitaExpress - Generador de Invitaciones Premium</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        playfair: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            900: '#4c1d95',
+                        },
+                        dark: {
+                            700: '#1e293b',
+                            800: '#0f172a',
+                            900: '#0b0f19',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            /* Premium Dark Abstract Background */
+            background-color: #0b0f19;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
+                linear-gradient(135deg, #0b0f19 0%, #0f172a 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f1f5f9;
+        }
+
+        .glass-input:focus {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: #8b5cf6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Subtle grid pattern for the background preview area */
+        .preview-area {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Elegant Stamp styling */
+        .stamp-elegant {
+            background: white;
+            padding: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+        }
+
+        .stamp-elegant:hover {
+            transform: rotate(0deg);
+        }
+
+        .stamp-inner {
+            border: 1px dashed rgba(0, 0, 0, 0.5);
+            padding: 4px;
+            background: white;
+        }
+
+        .stamp-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Ad Banner block styles */
+        .ad-placeholder {
+            background: repeating-linear-gradient(45deg,
+                    rgba(30, 41, 59, 0.8),
+                    rgba(30, 41, 59, 0.8) 10px,
+                    rgba(15, 23, 42, 0.8) 10px,
+                    rgba(15, 23, 42, 0.8) 20px);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            color: #94a3b8;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+
+<body class="font-outfit antialiased flex flex-col">
+
+    <!-- Header -->
+    <header class="glass-panel border-b-0 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <!-- Directly linked Logo -->
+            <img src="Gemini_Generated_Image_3jqgby3jqgby3jqg.png" alt="InvitaExpress Logo"
+                class="w-12 h-12 object-contain rounded-xl shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+            <h1 class="font-playfair font-bold text-2xl lg:text-3xl tracking-wide text-white">
+                Invita<span class="text-brand-400">Express</span>
+            </h1>
+        </div>
+        <div
+            class="hidden sm:flex text-xs font-semibold text-brand-400 bg-brand-900/50 px-4 py-1.5 rounded-full border border-brand-500/30 uppercase tracking-widest shadow-sm">
+            Creador de Invitaciones Premium
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <!-- Top Ad Banner Placeholder -->
+    <div class="w-full py-4 flex justify-center items-center px-4">
+        <div
+            class="ad-placeholder w-full max-w-4xl h-[90px] rounded-xl flex flex-col items-center justify-center shadow-lg font-bold tracking-[0.2em] text-xs">
+            <svg class="w-5 h-5 mb-1 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+            </svg>
+            ESPACIO BANNER PUBLICITARIO (728x90)
+        </div>
+    </div>
+
+    <!-- 3-Column Layout -->
+    <main class="flex-grow flex flex-col lg:flex-row w-full max-w-[1600px] mx-auto relative gap-6 px-4 lg:px-6 pb-8">
+
+        <!-- Editor Column (Left) -->
+        <section
+            class="w-full lg:w-[35%] xl:w-[30%] glass-panel rounded-2xl p-6 lg:p-8 shrink-0 z-10 flex flex-col relative h-[800px]">
+            <h2 class="text-2xl font-bold font-playfair mb-6 text-white border-b border-white/10 pb-4">Detalles del
+                Evento</h2>
+
+            <form id="inviteForm" class="space-y-6 flex-grow overflow-y-auto custom-scrollbar pr-2"
+                onsubmit="event.preventDefault();">
+                <!-- Group 1: General text -->
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-1.5">Título del Evento</label>
+                        <input type="text" id="titleIn" value="Celebración Especial"
+                            class="w-full px-4 py-3 rounded-xl glass-input transition"
+                            placeholder="Ej: Mi Cumpleaños 30">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-1.5">Fecha</label>
+                            <input type="date" id="dateIn"
+                                class="w-full px-4 py-3 rounded-xl glass-input transition [color-scheme:dark]">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-1.5">Hora</label>
+                            <input type="time" id="timeIn"
+                                class="w-full px-4 py-3 rounded-xl glass-input transition [color-scheme:dark]">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-1.5">Lugar (Nombre)</label>
+                        <input type="text" id="locationIn" placeholder="Ej: Salón de Eventos Las Perlas"
+                            class="w-full px-4 py-3 rounded-xl glass-input transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-1.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Dirección (Generará el Mapa)
+                        </label>
+                        <input type="text" id="addressIn" placeholder="Ej: Av. Siempreviva 123, Ciudad"
+                            class="w-full px-4 py-3 rounded-xl glass-input transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-1.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Link de Mapa
+                        </label>
+                        <input type="url" id="mapsLinkIn" placeholder="https://maps.app.goo.gl/..."
+                            class="w-full px-4 py-3 rounded-xl glass-input transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-1.5">Nota / Dress code</label>
+                        <textarea id="noteIn" rows="2"
+                            class="w-full px-4 py-3 rounded-xl glass-input transition resize-none"
+                            placeholder="Ej: Traje Formal."></textarea>
+                    </div>
+                </div>
+
+                <!-- Design Section -->
+                <div class="mt-8 pt-6 border-t border-white/10">
+                    <h2 class="text-xl font-bold font-playfair mb-5 text-white">Apariencia</h2>
+
+                    <!-- Background Template Selector -->
+                    <div class="bg-dark-800/50 p-5 rounded-2xl border border-white/5 mb-6">
+                        <div class="flex space-x-6 border-b border-white/10 mb-5">
+                            <button type="button"
+                                class="bg-tab active pb-2 text-sm font-bold text-brand-400 border-b-2 border-brand-400 transition"
+                                data-target="bg-gallery">Plantillas Zip</button>
+                            <button type="button"
+                                class="bg-tab pb-2 text-sm font-medium text-slate-400 hover:text-white transition"
+                                data-target="bg-upload">Subir Fondo</button>
+                        </div>
+
+                        <div id="bg-gallery" class="grid grid-cols-3 gap-3 tab-content">
+                            <!-- Theme Colors -->
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background: #0f172a"></div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background: linear-gradient(135deg, #4f46e5, #9333ea)"></div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background: linear-gradient(to right, #141E30, #243B55)"></div>
+
+                            <!-- Custom ZIP Templates loaded inline with direct relative URLs -->
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/1.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/2.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/3.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/4.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/5.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/6.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/7.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/8.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/9.png'); background-size: cover; background-position: center;">
+                            </div>
+                            <div class="h-[70px] rounded-xl shadow-lg cursor-pointer hover:scale-105 hover:ring-2 hover:ring-brand-400 bg-option transition-all border border-white/10"
+                                style="background-image: url('plantillas/10.png'); background-size: cover; background-position: center;">
+                            </div>
+                        </div>
+
+                        <div id="bg-upload" class="hidden tab-content pt-2">
+                            <input type="file" id="bgFileIn" accept="image/*"
+                                class="block w-full text-sm text-slate-400 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-brand-500/20 file:text-brand-300 hover:file:bg-brand-500/30 transition cursor-pointer glass-input rounded-xl shadow-inner" />
+                            <p class="text-[11px] text-brand-300/80 mt-3 font-medium flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                Usa esta opción si la descarga falla por error de CORS local.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stamp feature -->
+                    <div class="bg-dark-800/50 p-5 rounded-2xl border border-white/5 relative overflow-hidden">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-pink-500 line-through" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Añadir Estampilla Relieve
+                                </h3>
+                            </div>
+                        </div>
+
+                        <input type="file" id="stampFileIn" accept="image/*"
+                            class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-pink-500/20 file:text-pink-300 hover:file:bg-pink-500/30 transition cursor-pointer glass-input rounded-xl shadow-inner" />
+
+                        <button type="button" id="removeStampBtn"
+                            class="mt-4 text-xs font-semibold text-rose-400 hover:text-rose-300 hidden flex items-center justify-center w-full gap-2 transition bg-rose-500/10 hover:bg-rose-500/20 px-3 py-2.5 rounded-xl border border-rose-500/20">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                </path>
+                            </svg>
+                            Remover Estampilla de la foto
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Preview Column (Center / Main) -->
+        <section
+            class="preview-area w-[100%] lg:w-[45%] xl:w-[50%] flex flex-col items-center justify-center p-4 lg:p-10 relative rounded-2xl border border-white/5 bg-slate-800/20 shadow-inner h-[800px]">
+
+            <div
+                class="mb-6 text-brand-300 font-bold tracking-[0.2em] uppercase text-xs flex items-center gap-2 bg-brand-900/60 px-5 py-2 rounded-full border border-brand-500/30 backdrop-blur-md shadow-lg">
+                <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                    </path>
+                </svg>
+                Vista Previa Dinámica
+            </div>
+
+            <!-- Previw Card Container Wrapper (Fixed 9:16 aspect ratio) -->
+            <div
+                class="w-full max-w-[340px] xl:max-w-[390px] aspect-[9/16] drop-shadow-[0_25px_35px_rgba(0,0,0,0.8)] relative flex-shrink-0 transition-all group rounded-3xl border border-white/10 ring-8 ring-dark-900/40">
+
+                <!-- Inner element for html2canvas -->
+                <div id="previewCard"
+                    class="w-full h-full rounded-3xl overflow-hidden flex flex-col justify-end relative shadow-inner bg-dark-900">
+
+                    <!-- Dynamic Background Box Default -->
+                    <div id="cardBackground" class="absolute inset-0 transition-opacity duration-300"
+                        style="background: linear-gradient(135deg, #4f46e5, #9333ea); background-size: cover; background-position: center;">
+                    </div>
+
+                    <!-- Premium Overlays to guarantee readability against ANY background -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-transparent"></div>
+                    <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#0b0f19]/40 to-transparent"></div>
+
+                    <!-- Content Layer -->
+                    <div class="relative z-10 p-7 xl:p-8 flex flex-col h-full justify-between w-full">
+
+                        <!-- Top-Right Stamp -->
+                        <div id="stampContainer" class="hidden self-end mt-1 -mr-2">
+                            <div class="stamp-elegant">
+                                <div class="stamp-inner">
+                                    <img id="stampPreviewImg" src=""
+                                        class="stamp-img w-[80px] h-[80px] xl:w-[100px] xl:h-[100px]"
+                                        alt="Foto estampilla">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="stampSpacer" class="flex-grow"></div>
+
+                        <!-- Bottom Information Panel -->
+                        <div class="space-y-5 mb-2 w-full">
+
+                            <!-- Title -->
+                            <h1 id="previewTitle"
+                                class="font-playfair text-[40px] xl:text-[46px] leading-[1.1] font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] break-words w-full">
+                                Celebración Especial</h1>
+
+                            <!-- Detail Lines -->
+                            <div class="font-outfit space-y-3.5 xl:space-y-4 text-white/90">
+                                <p class="flex items-center gap-3 text-lg xl:text-[19px]">
+                                    <span class="p-1.5 bg-brand-500/20 rounded-lg text-brand-300"><svg
+                                            class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg></span>
+                                    <span id="previewDate" class="font-medium tracking-wide drop-shadow-md">Fecha por
+                                        definir</span>
+                                </p>
+                                <p class="flex items-center gap-3 text-lg xl:text-[19px]">
+                                    <span class="p-1.5 bg-brand-500/20 rounded-lg text-brand-300"><svg
+                                            class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg></span>
+                                    <span id="previewTime" class="font-medium tracking-wide drop-shadow-md">Hora por
+                                        definir</span>
+                                </p>
+                                <p class="flex items-start gap-3 text-lg xl:text-[19px]">
+                                    <span class="p-1.5 bg-brand-500/20 rounded-lg text-brand-300 mt-0.5"><svg
+                                            class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z">
+                                            </path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg></span>
+                                    <span id="previewLocation"
+                                        class="leading-tight font-medium drop-shadow-md pr-2">Lugar por definir</span>
+                                </p>
+                                <p id="previewAddressCont" class="flex items-start gap-3 text-lg xl:text-[19px] hidden">
+                                    <span class="p-1.5 bg-brand-500/20 rounded-lg text-brand-300 mt-0.5"><svg
+                                            class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                        </svg></span>
+                                    <span id="previewAddress"
+                                        class="leading-tight font-medium drop-shadow-md pr-2 text-white/80"></span>
+                                </p>
+
+                                <!-- Optional Note Box -->
+                                <div id="previewNoteCont"
+                                    class="pt-4 border-t border-white/10 text-white/80 text-[15px] xl:text-[16px] mt-5 hidden flex items-start gap-3 relative bg-white/5 p-4 rounded-xl backdrop-blur-sm -mx-2">
+                                    <svg class="w-5 h-5 mt-0.5 text-brand-400 flex-shrink-0" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <p id="previewNote" class="italic drop-shadow-md leading-relaxed w-full"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button Panel -->
+            <div class="absolute bottom-6 w-full flex justify-center z-20 px-4">
+                <button id="shareBtn"
+                    class="w-full max-w-[340px] xl:max-w-[390px] flex items-center justify-center gap-3 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white py-4 px-6 rounded-2xl font-bold font-outfit shadow-[0_15px_30px_-5px_rgba(99,102,241,0.6)] transform transition-all hover:-translate-y-1 active:scale-95 text-lg xl:text-xl tracking-wide group overflow-hidden relative border border-white/20">
+                    <div
+                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out font-bold">
+                    </div>
+                    <svg class="w-6 h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z">
+                        </path>
+                    </svg>
+                    <span class="relative z-10 drop-shadow-md">Compartir a WhatsApp</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Right Column (Ad Space) -->
+        <aside
+            class="hidden lg:flex w-[20%] xl:w-[20%] shrink-0 flex-col items-center justify-start p-6 rounded-2xl border border-white/5 bg-slate-800/30 h-[800px]">
+            <h3 class="text-xs font-bold text-slate-500 tracking-[0.2em] uppercase mb-6 text-center">Patrocinadores</h3>
+
+            <div
+                class="sticky top-6 w-full aspect-[1/2] ad-placeholder rounded-2xl flex flex-col items-center justify-center shadow-xl text-center p-4">
+                <svg class="w-10 h-10 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                    </path>
+                </svg>
+                <span class="font-bold tracking-widest text-[10px] leading-relaxed">ESPACIO
+                    BANNER<br>LATERAL<br>(Skyscraper)</span>
+            </div>
+        </aside>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const q = (sel) => document.querySelector(sel);
+            const qAll = (sel) => document.querySelectorAll(sel);
+
+            const titleIn = q('#titleIn');
+            const dateIn = q('#dateIn');
+            const timeIn = q('#timeIn');
+            const locationIn = q('#locationIn');
+            const addressIn = q('#addressIn');
+            const mapsLinkIn = q('#mapsLinkIn');
+            const noteIn = q('#noteIn');
+
+            const pTitle = q('#previewTitle');
+            const pDate = q('#previewDate');
+            const pTime = q('#previewTime');
+            const pLocation = q('#previewLocation');
+            const pAddress = q('#previewAddress');
+            const pAddressCont = q('#previewAddressCont');
+            const pNote = q('#previewNote');
+            const pNoteCont = q('#previewNoteCont');
+
+            const updatePreview = () => {
+                pTitle.textContent = titleIn.value.trim() || 'Título del Evento';
+                if (dateIn.value) {
+                    const [y, m, d] = dateIn.value.split('-');
+                    const dt = new Date(y, m - 1, d);
+                    let dateStr = dt.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+                    pDate.textContent = dateStr;
+                } else {
+                    pDate.textContent = 'Fecha por definir';
+                }
+                pTime.textContent = timeIn.value ? `${timeIn.value} hrs` : 'Hora por definir';
+                pLocation.textContent = locationIn.value.trim() || 'Lugar por definir';
+
+                const addrVal = addressIn.value.trim();
+                if (addrVal) {
+                    pAddressCont.classList.remove('hidden');
+                    pAddress.textContent = addrVal;
+                } else {
+                    pAddressCont.classList.add('hidden');
+                }
+
+                const noteVal = noteIn.value.trim();
+                if (noteVal) {
+                    pNoteCont.classList.remove('hidden');
+                    pNote.textContent = noteVal;
+                } else {
+                    pNoteCont.classList.add('hidden');
+                }
+            };
+
+            [titleIn, dateIn, timeIn, locationIn, addressIn, noteIn].forEach(el => el.addEventListener('input', updatePreview));
+
+            addressIn.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                mapsLinkIn.value = val ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(val)}` : '';
+            });
+
+            const setupDefaults = () => {
+                const nextSat = new Date();
+                nextSat.setDate(nextSat.getDate() + 7);
+                dateIn.value = `${nextSat.getFullYear()}-${String(nextSat.getMonth() + 1).padStart(2, '0')}-${String(nextSat.getDate()).padStart(2, '0')}`;
+                timeIn.value = "20:00";
+                updatePreview();
+            };
+            setupDefaults();
+
+            // Background Logic
+            const cardBackground = q('#cardBackground');
+            const bgOptEls = qAll('.bg-option');
+
+            bgOptEls.forEach(el => {
+                el.addEventListener('click', (e) => {
+                    bgOptEls.forEach(b => b.classList.remove('ring-4', 'ring-brand-400', 'scale-105'));
+                    e.target.classList.add('ring-4', 'ring-brand-400', 'scale-105');
+                    const styleStr = e.target.getAttribute('style');
+                    if (styleStr) {
+                        cardBackground.setAttribute('style', styleStr);
+                        cardBackground.style.backgroundSize = 'cover';
+                        cardBackground.style.backgroundPosition = 'center';
+                    }
+                });
+            });
+            if (bgOptEls[1]) bgOptEls[1].click(); // Select gradient default
+
+            const bgFileIn = q('#bgFileIn');
+            bgFileIn.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        bgOptEls.forEach(b => b.classList.remove('ring-4', 'ring-brand-400', 'scale-105'));
+                        cardBackground.setAttribute('style', `background-image: url('${ev.target.result}'); background-size: cover; background-position: center;`);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Stamp Logic
+            const stampFileIn = q('#stampFileIn');
+            const stampContainer = q('#stampContainer');
+            const stampPreviewImg = q('#stampPreviewImg');
+            const removeStampBtn = q('#removeStampBtn');
+            const stampSpacer = q('#stampSpacer');
+
+            stampFileIn.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        stampPreviewImg.src = ev.target.result;
+                        stampContainer.classList.remove('hidden');
+                        removeStampBtn.classList.remove('hidden');
+                        stampFileIn.classList.add('hidden');
+                        if (stampSpacer) stampSpacer.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeStampBtn.addEventListener('click', () => {
+                stampPreviewImg.src = '';
+                stampContainer.classList.add('hidden');
+                removeStampBtn.classList.add('hidden');
+                stampFileIn.value = '';
+                stampFileIn.classList.remove('hidden');
+                if (stampSpacer) stampSpacer.classList.remove('hidden');
+            });
+
+            // Tabs
+            qAll('.bg-tab').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    qAll('.bg-tab').forEach(b => {
+                        b.classList.remove('text-brand-400', 'border-b-2', 'border-brand-400', 'active');
+                        b.classList.add('text-slate-400');
+                    });
+                    e.target.classList.remove('text-slate-400');
+                    e.target.classList.add('text-brand-400', 'border-b-2', 'border-brand-400', 'active');
+                    qAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                    q(`#${e.target.getAttribute('data-target')}`).classList.remove('hidden');
+                });
+            });
+
+            // Share
+            const sanitizeName = (name) => name.replace(/[^a-z0-9]/gi, '_').toLowerCase().substring(0, 20) || 'invitacion';
+            const shareBtn = q('#shareBtn');
+            const previewCard = q('#previewCard');
+
+            shareBtn.addEventListener('click', async () => {
+                const originalHtml = shareBtn.innerHTML;
+                shareBtn.innerHTML = `
+                    <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <span class="relative z-10">Exportando...</span>`;
+                shareBtn.disabled = true;
+
+                try {
+                    const canvas = await html2canvas(previewCard, {
+                        scale: 3,
+                        useCORS: true,
+                        allowTaint: true, // Attempt to permit file:/// renders
+                        backgroundColor: null
+                    });
+
+                    canvas.toBlob(async (blob) => {
+                        if (!blob) throw new Error("Could not generate image blob");
+
+                        const tVal = titleIn.value.trim() || 'Celebración';
+                        const dStr = pDate.textContent;
+                        const hmStr = pTime.textContent;
+                        const lStr = locationIn.value.trim() || 'Lugar por definir';
+                        const aStr = addressIn.value.trim();
+                        const mStr = mapsLinkIn.value.trim();
+                        const nStr = noteIn.value.trim();
+
+                        let message = `¡Estás invitado!\n*${tVal}*\n\n📅 Fecha: ${dStr}\n⏰ Hora: ${hmStr}\n📍 Lugar: ${lStr}`;
+                        if (aStr) message += `\n📌 Dirección: ${aStr}`;
+                        if (mStr) message += `\n🗺️ Mapa: ${mStr}`;
+                        if (nStr) message += `\n\n📝 Nota: ${nStr}`;
+                        message += `\n\n✨ Nos vemos allá.`;
+
+                        const fileName = `${sanitizeName(tVal)}.png`;
+
+                        const fileURL = URL.createObjectURL(blob);
+                        const tempLink = document.createElement('a');
+                        tempLink.href = fileURL;
+                        tempLink.download = fileName;
+                        document.body.appendChild(tempLink);
+                        tempLink.click();
+                        document.body.removeChild(tempLink);
+                        URL.revokeObjectURL(fileURL);
+
+                        try { await navigator.clipboard.writeText(message); } catch (e) { }
+
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        let whatsappUrl = isMobile
+                            ? `whatsapp://send?text=${encodeURIComponent(message)}`
+                            : `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+                        setTimeout(() => window.open(whatsappUrl, '_blank'), 600);
+                    }, 'image/png');
+                } catch (error) {
+                    console.error('Canvas error:', error);
+                    alert('El navegador bloqueó la captura local "file:///". Por favor, usa la recuadro "Subir Fondo" y pon la imagen deseada a mano (o usa colores sólidos) para que te permita descargarla. También puedes subir este archivo a internet.');
+                } finally {
+                    shareBtn.innerHTML = originalHtml;
+                    shareBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
