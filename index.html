@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvitaExpress - Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #4face3;
+            --accent-hover: #3d8bbd;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f3460);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        header img {
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 300px minmax(350px, 1fr) 300px;
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 20px 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(79, 172, 227, 0.3);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Preview Area */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-container {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 9/16;
+            background-color: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-image: url('plantillas/1.png');
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .invitation-text {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            text-align: center;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+
+        #preview-name {
+            top: 30%;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        #preview-date {
+            top: 45%;
+            font-size: 1.2rem;
+        }
+
+        #preview-place {
+            top: 60%;
+            font-size: 1.5rem;
+        }
+
+        #preview-address {
+            top: 70%;
+            font-size: 1rem;
+        }
+
+        /* Ads Area */
+        .ads-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ad-banner {
+            width: 100%;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--glass-border);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .ad-banner.horizontal {
+            height: 90px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Horizontal Ad -->
+    <div class="ad-banner horizontal">
+        Espacio Publicitario Horizontal (AdSense)
+    </div>
+
+    <header>
+        <img src="Gemini_Generated_Image_3jqgby3jqgby3jqg.png" alt="InvitaExpress Logo">
+    </header>
+
+    <div class="main-container">
+        <!-- Col 1: Edición -->
+        <div class="glass-panel">
+            <h2 style="margin-bottom: 20px;">Edición</h2>
+
+            <div class="form-group">
+                <label>Plantilla:</label>
+                <select id="input-template" onchange="updatePreview()">
+                    <option value="1">Modelo 1</option>
+                    <option value="2">Modelo 2</option>
+                    <option value="3">Modelo 3</option>
+                    <option value="4">Modelo 4</option>
+                    <option value="5">Modelo 5</option>
+                    <option value="6">Modelo 6</option>
+                    <option value="7">Modelo 7</option>
+                    <option value="8">Modelo 8</option>
+                    <option value="9">Modelo 9</option>
+                    <option value="10">Modelo 10</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Festejado / Nombre:</label>
+                <input type="text" id="input-name" placeholder="Ej. Juan Pérez" oninput="updatePreview()"
+                    value="¡Mi Cumpleaños!">
+            </div>
+
+            <div class="form-group">
+                <label>Fecha y Hora:</label>
+                <input type="datetime-local" id="input-date" oninput="updatePreview()">
+            </div>
+
+            <div class="form-group">
+                <label>Lugar (Nombre):</label>
+                <input type="text" id="input-place" placeholder="Ej. Mi Casa" oninput="updatePreview()" value="Mi Casa">
+            </div>
+
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" id="input-address" placeholder="Ej. Portales 1535" oninput="updatePreview()"
+                    value="Portales 1535">
+            </div>
+
+            <button class="btn-primary" onclick="shareInvitation()" id="shareBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                Compartir InvitaExpress
+            </button>
+        </div>
+
+        <!-- Col 2: Previsualización -->
+        <div class="preview-section glass-panel">
+            <div class="preview-container" id="invitation-preview">
+                <div id="preview-name" class="invitation-text">¡Mi Cumpleaños!</div>
+                <div id="preview-date" class="invitation-text"></div>
+                <div id="preview-place" class="invitation-text">Mi Casa</div>
+                <div id="preview-address" class="invitation-text">Portales 1535</div>
+            </div>
+        </div>
+
+        <!-- Col 3: Publicidad -->
+        <div class="ads-section glass-panel">
+            <h3>Publicidad</h3>
+            <div class="ad-banner">
+                Espacio Cuadrado 1 (AdSense)
+            </div>
+            <div class="ad-banner">
+                Espacio Cuadrado 2 (AdSense)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const templateUrls = {
+            "1": "plantillas/1.png",
+            "2": "plantillas/2.png",
+            "3": "plantillas/3.png",
+            "4": "plantillas/4.png",
+            "5": "plantillas/5.png",
+            "6": "plantillas/6.png",
+            "7": "plantillas/7.png",
+            "8": "plantillas/8.png",
+            "9": "plantillas/9.png",
+            "10": "plantillas/10.png"
+        };
+
+        // Init logic
+        document.getElementById('input-date').value = new Date().toISOString().slice(0, 16);
+        updatePreview();
+
+        function updatePreview() {
+            const template = document.getElementById('input-template').value;
+            document.getElementById('invitation-preview').style.backgroundImage = `url('${templateUrls[template]}')`;
+
+            document.getElementById('preview-name').innerText = document.getElementById('input-name').value;
+
+            const dateVal = document.getElementById('input-date').value;
+            if (dateVal) {
+                const dateObj = new Date(dateVal);
+                document.getElementById('preview-date').innerText = dateObj.toLocaleString('es-ES', { dateStyle: 'long', timeStyle: 'short' });
+            }
+
+            document.getElementById('preview-place').innerText = document.getElementById('input-place').value;
+            document.getElementById('preview-address').innerText = document.getElementById('input-address').value;
+        }
+
+        async function shareInvitation() {
+            const btn = document.getElementById('shareBtn');
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = 'Procesando...';
+            btn.disabled = true;
+
+            const previewElem = document.getElementById('invitation-preview');
+            const direccion = document.getElementById('input-address').value;
+
+            try {
+                // Generate Canvas
+                const canvas = await html2canvas(previewElem, {
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: null,
+                    scale: 2 // High quality
+                });
+
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], "Celebracion_Especial.png", { type: "image/png" });
+                    const sharedText = "¡Te invito a mi evento en: " + direccion + "! 📍 Mapa: https://maps.google.com/?q=" + encodeURIComponent(direccion);
+
+                    // If Mobile / Supports Web Share API with files
+                    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                        try {
+                            await navigator.share({
+                                files: [file],
+                                title: 'Invitación Especial',
+                                text: sharedText
+                            });
+                        } catch (err) {
+                            console.error('Share error:', err);
+                        }
+                    } else {
+                        // Desktop Fallback
+                        // 1. Download internally
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'Celebracion_Especial.png';
+                        a.click();
+                        URL.revokeObjectURL(url);
+
+                        // 2. Try to copy to clipboard
+                        try {
+                            if (navigator.clipboard && window.ClipboardItem) {
+                                await navigator.clipboard.write([
+                                    new ClipboardItem({
+                                        'image/png': blob
+                                    })
+                                ]);
+                                alert("¡Imagen copiada al portapapeles! 📋 (Para enviarla, haz Cmd+V / Ctrl+V en WhatsApp web)");
+                            } else {
+                                alert("Imagen descargada. Adjúntala en tu chat de WhatsApp.");
+                            }
+                        } catch (err) {
+                            alert("Imagen descargada. Adjúntala en tu chat de WhatsApp.");
+                        }
+
+                        // 3. Open WhatsApp Web with text
+                        window.open('https://web.whatsapp.com/send?text=' + encodeURIComponent(sharedText), '_blank');
+                    }
+
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                }, 'image/png');
+
+            } catch (err) {
+                console.error("html2canvas error:", err);
+                alert("Hubo un error al generar la invitación. " + err.message);
+                btn.innerHTML = originalBtnText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>
